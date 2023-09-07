@@ -12,3 +12,27 @@ CALCULATE(
 
 Day 2 
 Questions: Which product is the most and lest expensive?
+Answer: 
+Most expensive product is Cote de Blaye.
+Least expensive product is Geitost.
+Solution:
+1.Most expensive product.
+Day 2 Most expensive Product = 
+CALCULATE(
+    SELECTEDVALUE(Products[ProductName]),
+    TOPN(1,Products,[Unit Price],DESC)
+)
+
+2.Least expensive product
+Day 2 Most expensive Product = 
+CALCULATE(
+    SELECTEDVALUE(Products[ProductName]),
+    TOPN(1,Products,[Unit Price],ASC)
+)
+
+Day 3
+Questions: What is the average unit price for our products?
+Answer: 28.87
+Solution:
+Day 3 Average Unit Price = 
+    AVERAGE('Products'[UnitPrice])
