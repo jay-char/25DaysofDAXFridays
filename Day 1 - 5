@@ -36,3 +36,16 @@ Answer: 28.87
 Solution:
 Day 3 Average Unit Price = 
     AVERAGE('Products'[UnitPrice])
+
+
+Day 4
+Questions: How many products are above the average unit price?
+Answer: 25
+Solution: 
+Day 4 How many products are above the average unit price = 
+VAR avgPrice = AVERAGE(Products[UnitPrice])
+
+Return 
+CALCULATE(
+    COUNTA(Products[ProductName]),
+    FILTER(Products,Products[UnitPrice] > avgPrice))
