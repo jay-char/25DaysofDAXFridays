@@ -75,3 +75,25 @@ Day 7 order value of not shipped order =
 CALCULATE([Total sales],
 FILTER(Orders,
     ISBLANK(Orders[ShippedDate])))
+
+Day 8
+Question: How many orders are "single item" (only one product ordered)?
+Answer: 137
+Solution1: 
+Step 1 - Create the 1st dax
+Day 8.1 = 
+VAR numberofproducts = COUNTA(Orders[ProductID])
+RETURN
+CALCULATE(COUNTA(Orders[OrderID]),
+FILTER(Orders,numberofproducts=1))
+
+Step 2 - Create the 2nd dax
+Day 8.2 = 
+IF(HASONEVALUE(Orders[OrderID]),[Day 8.1],
+ SUMX(VALUES(Orders[OrderID]),[Day 8.1]))
+
+Solution2: 
+Day 8.3 = 
+COUNTROWS(
+    FILTER(
+        SUMMARIZE(Orders,Orders[OrderID],"No products", COUNTA(Orders[ProductID])),[No products]=1))
