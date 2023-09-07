@@ -1,1 +1,14 @@
+Day 1
+Questions: How many current products cost less than $20?
+ANSWER: 37 products
 
+Solution:
+Day1 Current Products cost less than $20 = 
+CALCULATE(
+    COUNTA(Products[ProductName]),
+    FILTER(Products,[Unit Price] < 20), 
+    'Products'[Discontinued] = False()
+    )
+
+Day 2 
+Questions: Which product is the most and lest expensive?
