@@ -60,3 +60,18 @@ Calculate(
     FILTER(Products,[Unit Price] >= 15),
     FILTER(Products,[Unit Price] <= 25) -- We can put "," and filter. It will work like and / or we can use "&&"
     )
+
+Day 6
+Questions: How is the average order size for all years and all customers?
+Answer: 23.81
+Solution:
+Day 6 Average order size = AVERAGE('Orders'[Quantity])
+
+Day 7
+Questions: What is the oder value in $ of open orders? (Not shipped yet)
+Answer: 27.44K
+Solution:
+Day 7 order value of not shipped order = 
+CALCULATE([Total sales],
+FILTER(Orders,
+    ISBLANK(Orders[ShippedDate])))
