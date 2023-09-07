@@ -49,3 +49,14 @@ Return
 CALCULATE(
     COUNTA(Products[ProductName]),
     FILTER(Products,Products[UnitPrice] > avgPrice))
+
+Day 5
+Questions: How many products cost between $15 and $25? (Inclusive)
+Answer: 25
+Solution:
+Day 5 How many products costs between 15 and 20 = 
+Calculate(
+    COUNTA(Products[ProductName]),
+    FILTER(Products,[Unit Price] >= 15),
+    FILTER(Products,[Unit Price] <= 25) -- We can put "," and filter. It will work like and / or we can use "&&"
+    )
