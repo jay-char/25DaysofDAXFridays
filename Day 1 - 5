@@ -97,3 +97,21 @@ Day 8.3 =
 COUNTROWS(
     FILTER(
         SUMMARIZE(Orders,Orders[OrderID],"No products", COUNTA(Orders[ProductID])),[No products]=1))
+
+Day 9
+Question: Average sales per transaction for "Romero y Tomillo"
+Answer: 293.46
+Solution: 
+Day 9 = 
+CALCULATE(
+    AVERAGEX(
+        VALUES(Orders[OrderID]),'Orders'[Total sales]), Customers[CompanyName] = "Romero y tomillo")
+
+Day 10
+Question: How many days since "North/South" last purchase?
+Answer: ....
+Solution: 
+Day 10 = 
+VAR lastpurchase = CALCULATE(LASTDATE(Orders[OrderDate]),Customers[CompanyName] = "North/South")
+RETURN 
+DATEDIFF(lastpurchase,today(),DAY)
