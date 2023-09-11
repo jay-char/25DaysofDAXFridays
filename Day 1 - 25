@@ -115,3 +115,27 @@ Day 10 =
 VAR lastpurchase = CALCULATE(LASTDATE(Orders[OrderDate]),Customers[CompanyName] = "North/South")
 RETURN 
 DATEDIFF(lastpurchase,today(),DAY)
+
+Day 11
+Question: How many customers have ordered only once?
+Solution1
+Day 11.1 = 
+Calculate(DISTINCTCOUNT(Customers[CustomerID]),
+Filter(Orders,DISTINCTCOUNT(Orders[OrderID])=1))
+
+Solution2
+Day 11.2 = 
+    COUNTROWS(
+        FILTER(
+            SUMMARIZE(Orders, Orders[CustomerID],"count",DISTINCTCOUNT((Orders[OrderID]))),
+            [count] = 1))
+
+Solution3
+Day 11.3 = 
+SUMX(Customers,
+IF(
+    CALCULATE(
+        DISTINCTCOUNT(Orders[OrderID])=1),
+        1,0))
+
+Day 12
