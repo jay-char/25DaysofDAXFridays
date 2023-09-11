@@ -9,6 +9,7 @@ CALCULATE(
     FILTER(Products,[Unit Price] < 20), 
     'Products'[Discontinued] = False()
     )
+----------------------------------------------
 
 Day 2 
 Questions: Which product is the most and lest expensive?
@@ -29,6 +30,7 @@ CALCULATE(
     SELECTEDVALUE(Products[ProductName]),
     TOPN(1,Products,[Unit Price],ASC)
 )
+----------------------------------------------
 
 Day 3
 Questions: What is the average unit price for our products?
@@ -36,7 +38,7 @@ Answer: 28.87
 Solution:
 Day 3 Average Unit Price = 
     AVERAGE('Products'[UnitPrice])
-
+----------------------------------------------
 
 Day 4
 Questions: How many products are above the average unit price?
@@ -49,6 +51,7 @@ Return
 CALCULATE(
     COUNTA(Products[ProductName]),
     FILTER(Products,Products[UnitPrice] > avgPrice))
+----------------------------------------------
 
 Day 5
 Questions: How many products cost between $15 and $25? (Inclusive)
@@ -60,12 +63,14 @@ Calculate(
     FILTER(Products,[Unit Price] >= 15),
     FILTER(Products,[Unit Price] <= 25) -- We can put "," and filter. It will work like and / or we can use "&&"
     )
+----------------------------------------------
 
 Day 6
 Questions: How is the average order size for all years and all customers?
 Answer: 23.81
 Solution:
 Day 6 Average order size = AVERAGE('Orders'[Quantity])
+----------------------------------------------
 
 Day 7
 Questions: What is the oder value in $ of open orders? (Not shipped yet)
@@ -75,6 +80,7 @@ Day 7 order value of not shipped order =
 CALCULATE([Total sales],
 FILTER(Orders,
     ISBLANK(Orders[ShippedDate])))
+----------------------------------------------
 
 Day 8
 Question: How many orders are "single item" (only one product ordered)?
@@ -97,6 +103,7 @@ Day 8.3 =
 COUNTROWS(
     FILTER(
         SUMMARIZE(Orders,Orders[OrderID],"No products", COUNTA(Orders[ProductID])),[No products]=1))
+----------------------------------------------
 
 Day 9
 Question: Average sales per transaction for "Romero y Tomillo"
@@ -106,6 +113,7 @@ Day 9 =
 CALCULATE(
     AVERAGEX(
         VALUES(Orders[OrderID]),'Orders'[Total sales]), Customers[CompanyName] = "Romero y tomillo")
+----------------------------------------------
 
 Day 10
 Question: How many days since "North/South" last purchase?
@@ -115,6 +123,7 @@ Day 10 =
 VAR lastpurchase = CALCULATE(LASTDATE(Orders[OrderDate]),Customers[CompanyName] = "North/South")
 RETURN 
 DATEDIFF(lastpurchase,today(),DAY)
+----------------------------------------------
 
 Day 11
 Question: How many customers have ordered only once?
@@ -137,5 +146,16 @@ IF(
     CALCULATE(
         DISTINCTCOUNT(Orders[OrderID])=1),
         1,0))
+----------------------------------------------
 
-Day 12
+Day 12 
+Question: How many new customers in 2021?
+Answer: 8
+Solution: 
+Day 12 = 
+VAR Jan1st = DATE(2021,1,1)
+Return
+COUNTROWS(
+FILTER(
+SUMMARIZE(Orders,Orders[CustomerID],"first date",FIRSTNONBLANKVALUE(Orders[CustomerID],MIN(Orders[OrderDate]))), [first date] >= Jan1st))
+
