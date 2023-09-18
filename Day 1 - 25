@@ -167,3 +167,23 @@ Day 13 =
 VAR jan1st = DATE(2021,1,1)
 RETURN  
 FILTER(SUMMARIZE(Orders, Orders[CustomerID],"lastpurchase", LASTNONBLANKVALUE(Orders[CustomerID],MAX(Orders[OrderDate]))), [lastpurchase]<=jan1st)
+
+Day 14
+Question: How many customers have Never purcahsed "Queso Cabrales"?
+Answer: 59
+Solution1:
+Day 14 = 
+SUMX(Customers,
+(IF(
+    ISBLANK(
+        CALCULATE([Total sales], Products[ProductName] = "Queso Cabrales")),1,0)))
+
+Solution2: 
+Day 14.1 = 
+VAR allcustomers = VALUES(Customers[CustomerID])
+VAR QCCustomers = CALCULATETABLE(VALUES(Orders[CustomerID]),FILTER(ALL(Orders),Orders[ProductID] = 11))
+Return 
+CALCULATE(DISTINCTCOUNT(Customers[CustomerID]),
+EXCEPT(allcustomers, QCCustomers))
+
+Day 15
