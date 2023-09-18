@@ -187,3 +187,17 @@ CALCULATE(DISTINCTCOUNT(Customers[CustomerID]),
 EXCEPT(allcustomers, QCCustomers))
 
 Day 15
+Question: How many customers have order only 
+Answer: 5
+Solution: 
+Day 15 = 
+VAR singleOrder = 
+SUMMARIZE(
+FILTER(
+SUMMARIZE(Orders,Orders[OrderID], Orders[CustomerID], "count product", COUNTA(Products[ProductID])), [count product] = 1), Orders[CustomerID], Orders[OrderID])
+VAR QCpurchases = 
+SUMMARIZE(
+FILTER(
+SUMMARIZE(Orders, Orders[OrderID], Orders[CustomerID], Orders[ProductID]), Orders[ProductID] = 11), Orders[CustomerID], Orders[OrderID])
+RETURN 
+COUNTROW(INTERSECT(singleOrder,QCpurchases))
