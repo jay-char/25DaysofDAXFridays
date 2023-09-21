@@ -225,4 +225,14 @@ Question: How many products need to be restocked? (based on restock levels)
 Answer: 18
 Solution: 
 Day 17 = 
-Calculate(countrows('Products'),Filter(Products,Products[Stocked units]<Products[Restock level]))
+Calculate(Counta('Products[productname]),Filter(Products,Products[Stocked units]<Products[Restock level]))
+
+----------------------------------------------
+
+Day 18 
+Question: How many products on order we need to restock?
+Answer: 14
+Solution: 
+Day 18 =
+Calculate(
+    COUNTA(Products[ProductName]),FILTER(Products,Products[UnitsInStock] < Products[UnitsOnOrder]))
