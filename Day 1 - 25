@@ -236,3 +236,28 @@ Solution:
 Day 18 =
 Calculate(
     COUNTA(Products[ProductName]),FILTER(Products,Products[UnitsInStock] < Products[UnitsOnOrder]))
+
+---------------------------------------------
+
+Day 19
+Question: What is the stocked value of the discontinued products ?
+Answer: 4,453
+Solution: 
+Day 19 = 
+CALCULATE(
+    SUMX(Products,([Unit Price]*[Stocked units])),Products[Discontinued] = TRUE()
+)
+
+-----------------------------------------------
+
+Day 20
+Question: Which vendor has the highest stock value?
+Answer: Aux joyeux ecclesiastiques
+Solution
+Day 20 =
+CALCULATE(
+     SELECTEDVALUE(Suppliers[CompanyName]),
+        TOPN(1,
+        SUMMARIZE(Products,Suppliers[CompanyName],"stock value",SUMX(Products,(Products[UnitPrice]*Products[Stocked units]))),
+        [stock value],
+        DESC))
