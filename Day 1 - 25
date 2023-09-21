@@ -221,4 +221,8 @@ SUMMARIZE(Products,Products[ProductName],"SumStock",sum(Products[UnitsInStock]))
 ----------------------------------------------
 
 Day 17
-Question: 
+Question: How many products need to be restocked? (based on restock levels)
+Answer: 18
+Solution: 
+Day 17 = 
+Calculate(countrows('Products'),Filter(Products,Products[Stocked units]<Products[Restock level]))
