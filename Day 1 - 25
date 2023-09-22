@@ -261,3 +261,24 @@ CALCULATE(
         SUMMARIZE(Products,Suppliers[CompanyName],"stock value",SUMX(Products,(Products[UnitPrice]*Products[Stocked units]))),
         [stock value],
         DESC))
+
+-------------------------------------------------
+
+Day 21
+Question: How many employees (%) are female?
+Answer: 56%
+Solution: 
+Day 21 = 
+VAR Total = COUNT(Employees[FirstName])
+VAR Female = CALCULATE(COUNT(Employees[FirstName]),Employees[Gender] = "Female")
+RETURN
+DIVIDE(Female,Total)
+
+-------------------------------------------------
+
+Day 22 
+Question:How many employees are 60 years old or over? 
+Answer: 8
+Solution: 
+Day 22 = 
+CALCULATE(count(Employees[FirstName]),FILTER(Employees,(DATEDIFF(Employees[BirthDate],TODAY(),YEAR) >= 60)))
