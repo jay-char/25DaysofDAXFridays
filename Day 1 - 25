@@ -282,3 +282,41 @@ Answer: 8
 Solution: 
 Day 22 = 
 CALCULATE(count(Employees[FirstName]),FILTER(Employees,(DATEDIFF(Employees[BirthDate],TODAY(),YEAR) >= 60)))
+
+
+-------------------------------------------------
+
+Day 23
+Question:Which employee had the highest sales in 2022?
+Answer: Margaret
+Solution:
+Day 23 = 
+CALCULATE(
+    SELECTEDVALUE('Employees'[FirstName]),
+    Topn(1,SUMMARIZE(Orders,Employees[FirstName],"ESales",sum(Orders[_Sales])),
+        [ESales],DESC))
+
+-------------------------------------------------
+
+Day 24
+Question: How many employees sold over $100K in 2022
+Answer: 4
+Solution: 
+Day 24 = 
+VAR currentYear =year(today())-2
+Return 
+CALCULATE(
+Countrows(
+    Filter(
+        VALUES(Employees[EmployeeID]),
+        [Total sales] > 100000)),
+        'Calendar'[Year] = currentYear)
+
+-------------------------------------------------
+
+Day 25 
+Question: How many employees got hired in 1994
+Answer: 3
+Solution: 
+Day 25 = 
+Calculate(COUNTA('Employees'[FirstName]),Year('Employees'[HireDate]) = 1994)
